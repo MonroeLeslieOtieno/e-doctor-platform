@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Registration | E-Doctor Platform</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f8fb;
+}
+
+header {
+    background-color: limegreen;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    color: limegreen;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    background-color: limegreen;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: navy;
+}
+
+.success-message {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #e6ffe6;
+    color: green;
+    border-radius: 6px;
+    display: none;
+    text-align: center;
+}
+
+footer {
+    background-color: limegreen;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Doctor / Consultant Registration</h1>
+    <p>E-Doctor Platform | Murang'a University Health Unit</p>
+</header>
+
+<div class="container">
+
+    <h2>Register Doctor</h2>
+
+    <form id="doctorForm">
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="fullname" required>
+        </div>
+
+        <div class="form-group">
+            <label>Medical License Number</label>
+            <input type="text" id="medicalNumber" required>
+        </div>
+
+        <div class="form-group">
+            <label>Area of Practice</label>
+            <input type="text" id="practice" placeholder="e.g General Physician, Dermatologist" required>
+        </div>
+
+        <button type="submit">Register Doctor</button>
+
+        <div class="success-message" id="successMessage">
+            Doctor registered successfully!
+        </div>
+
+    </form>
+
+</div>
+
+<footer>
+    &copy; 2026 Murang'a University Health Unit
+</footer>
+
+<script>
+document.getElementById("doctorForm").addEventListener("submit", async function(event){
+    event.preventDefault();
+
+    const full_name = document.getElementById("fullname").value;
+    const medical_number = document.getElementById("medicalNumber").value;
+    const practice = document.getElementById("practice").value;
+
+    if(full_name === "" || medical_number === "" || practice === ""){
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:5000/api/register-doctor", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                full_name,
+                medical_number,
+                practice
+            })
+        });
+
+        const data = await response.json();
+
+        if(response.ok){
+            document.getElementById("successMessage").style.display = "block";
+            document.getElementById("doctorForm").reset();
+        } else {
+            alert(data.message);
+        }
+
+    } catch(error) {
+        alert("Error connecting to server.");
+    }
+});
+</script>
+
+</body>
+</html>

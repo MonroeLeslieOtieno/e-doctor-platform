@@ -1,0 +1,127 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f8fb;
+  color: #333;
+}
+
+header {
+  background-color: limegreen; /* Header background */
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: limegreen; /* Navbar background */
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 5px 15px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: limegreen; /* Button background */
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background-color: #213373; /* Hover effect */
+}
+
+main {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+section h2 {
+  color: limegreen;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.buttons a {
+  text-align: center;
+  flex: 1 1 200px;
+  background-color: limegreen;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.buttons a:hover {
+  background-color: #213373; /* Hover effect */
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feedback textarea {
+  resize: vertical;
+  min-height: 80px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+}
+
+.feedback button {
+  align-self: start;
+  padding: 10px 20px;
+  border: none;
+  background-color: limegreen;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.feedback button:hover {
+  background-color: #213373; /* Hover effect */
+}
+
+footer {
+  background-color: limegreen;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+@media(max-width:600px){
+  .buttons {
+    flex-direction: column;
+  }
+}

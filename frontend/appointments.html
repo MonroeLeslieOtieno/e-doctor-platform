@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Appointment | E-Doctor Platform</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f8fb;
+}
+
+header {
+    background-color: limegreen;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: limegreen;
+    margin-bottom: 10px;
+}
+
+/* ===== FORM STYLING ===== */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+select, input, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: limegreen;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: navy;
+}
+
+.review-box {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 5px solid limegreen;
+    margin-bottom: 20px;
+}
+
+.success-message {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #e6ffe6;
+    color: green;
+    border-radius: 6px;
+    display: none;
+}
+
+/* Responsive */
+@media(max-width:600px){
+    .container {
+        margin: 15px;
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Schedule Appointment</h1>
+    <p>E-Doctor Platform | Murang'a University Health Unit</p>
+</header>
+
+<div class="container">
+
+    <!-- Select Existing Patient -->
+    <h2>Select Patient</h2>
+    <div class="form-group">
+        <label for="patient">Choose Patient</label>
+        <select id="patient" onchange="displayPatientInfo()">
+            <option value="">-- Select Patient --</option>
+            <option value="1" data-age="21" data-condition="Flu Symptoms">John Mwangi</option>
+            <option value="2" data-age="23" data-condition="Headache">Jane Wanjiku</option>
+            <option value="3" data-age="25" data-condition="Routine Checkup">Samuel Kariuki</option>
+        </select>
+    </div>
+
+    <!-- Register New Patient Redirect -->
+<div style="margin-top:20px;">
+    <h3>New Patient?</h3>
+    <p>*If the patient is not in the existing records, please register first*</p>
+    
+    <a href="register.html">
+        <button type="button">+ Register New Patient</button>
+    </a>
+</div>
+
+</div>
+
+    <!-- Optional Patient Review -->
+    <div class="review-box" id="patientReview" style="display:none;">
+        <h3>Patient Quick Review (Optional)</h3>
+        <p><strong>Age:</strong> <span id="age"></span></p>
+        <p><strong>Previous Condition:</strong> <span id="condition"></span></p>
+    </div>
+
+    <!-- Appointment Scheduling -->
+    <h2>Appointment Details</h2>
+
+    <div class="form-group">
+        <label for="doctor">Select Doctor / Consultant</label>
+        <select id="doctor">
+            <option value="">-- Select Doctor --</option>
+            <option>Dr. Kamau (General Physician)</option>
+            <option>Dr. Njeri (Dermatologist)</option>
+            <option>Dr. Otieno (Consultant Physician)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Appointment Date</label>
+        <input type="date" id="date">
+    </div>
+
+    <div class="form-group">
+        <label for="time">Appointment Time</label>
+        <input type="time" id="time">
+    </div>
+
+    <div class="form-group">
+        <label for="notes">Additional Notes (Optional)</label>
+        <textarea id="notes" placeholder="Enter additional details..."></textarea>
+    </div>
+
+    <button onclick="bookAppointment()">Book Appointment</button>
+
+    <div class="success-message" id="successMessage">
+        Appointment successfully scheduled!
+    </div>
+
+</div>
+
+<script>
+function displayPatientInfo() {
+    const patientSelect = document.getElementById("patient");
+    const selectedOption = patientSelect.options[patientSelect.selectedIndex];
+
+    if (selectedOption.value !== "") {
+        document.getElementById("patientReview").style.display = "block";
+        document.getElementById("age").textContent = selectedOption.getAttribute("data-age");
+        document.getElementById("condition").textContent = selectedOption.getAttribute("data-condition");
+    } else {
+        document.getElementById("patientReview").style.display = "none";
+    }
+}
+
+function bookAppointment() {
+    const patient = document.getElementById("patient").value;
+    const doctor = document.getElementById("doctor").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    if (patient === "" || doctor === "" || date === "" || time === "") {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    document.getElementById("successMessage").style.display = "block";
+}
+</script>
+
+</body>
+</html>
