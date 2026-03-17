@@ -1,0 +1,46 @@
+# ========================
+# Node.js
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp
+.pnp.js
+
+# ========================
+# Environment & Secrets
+# ========================
+.env
+.env.*
+!.env.example
+
+# ========================
+# PHP / Composer
+# ========================
+vendor/
+composer.lock
+
+# ========================
+# OS & Editor files
+# ========================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
+
+# ========================
+# Build outputs
+# ========================
+dist/
+build/
