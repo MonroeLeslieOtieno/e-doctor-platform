@@ -172,7 +172,8 @@ document.getElementById("registrationForm").addEventListener("submit", function(
     const phone = document.getElementById("phone").value;
     const email = document.getElementById("email").value;
 
-    if(fullname === "" || gender === "" || age === "" || phone === "" || email === "" ){
+    if(fullname === "" || gender === "" || age === "" || phone === "" || email === "" )
+    {
         alert("Please fill in all required fields.");
         return;
     }
@@ -182,8 +183,9 @@ document.getElementById("registrationForm").addEventListener("submit", function(
 
     // Clear form
     document.getElementById("registrationForm").reset();
-});
+
 </script>
 
 </body>
+
 </html>
