@@ -1,11 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUT E-Doctor Platform | Murang'a University Health Unit</title>
+  <meta name="description" content="Murang'a University E-Doctor Platform — book appointments, consult doctors, manage prescriptions and lab tests online.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+
+  <header>
+    <h1>MUT E-Doctor Platform</h1>
+    <p>Murang'a University Health Unit</p>
+    <nav>
+      <a href="frontend/pages/home.html">Dashboard</a>
+      <a href="frontend/pages/appointments.html">Appointments</a>
+      <a href="frontend/pages/consultation.html">Consultation</a>
+      <a href="frontend/pages/labs.html">Lab Tests</a>
+      <a href="frontend/pages/prescriptions.html">Prescriptions</a>
+      <a href="frontend/pages/doctors-registration.html">Doctors</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Welcome to Murang'a University E-Doctor Platform</h2>
+      <p>
+        Murang'a University is committed to providing quality healthcare services to students, staff, and faculty.
+        Our E-Doctor Platform allows you to book appointments, consult doctors, view prescriptions
+        and lab tests conveniently online.
+      </p>
+    </section>
+
+    <!-- Quick Access -->
+    <section>
+      <h2>Quick Access</h2>
+      <div class="dashboard">
+        <div class="card">
+          <h2>📅 Appointments</h2>
+          <p>Schedule and manage patient appointments.</p>
+          <a href="frontend/pages/appointments.html">Book Appointment</a>
+        </div>
+        <div class="card">
+          <h2>🩺 Consultation</h2>
+          <p>Record patient diagnosis and consultation notes.</p>
+          <a href="frontend/pages/consultation.html">Open</a>
+        </div>
+        <div class="card">
+          <h2>🧪 Laboratory</h2>
+          <p>Manage lab tests and results.</p>
+          <a href="frontend/pages/labs.html">Open</a>
+        </div>
+        <div class="card">
+          <h2>💊 Prescriptions</h2>
+          <p>Create and manage patient prescriptions.</p>
+          <a href="frontend/pages/prescriptions.html">Open</a>
+        </div>
+        <div class="card">
+          <h2>👨‍⚕️ Doctors</h2>
+          <p>Register doctors and consultants.</p>
+          <a href="frontend/pages/doctors-registration.html">Open</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feedback -->
+    <section>
+      <h2>Feedback</h2>
+      <form class="feedback-form" id="feedbackForm">
+        <textarea id="feedbackMsg" placeholder="Your feedback or suggestions..." required></textarea>
+        <button type="submit">Submit Feedback</button>
+      </form>
+      <p id="feedbackStatus" style="display:none; color:green; font-weight:bold;">Thank you for your feedback!</p>
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2>Contact Us</h2>
+      <p>📞 Phone: +254 712 345 678</p>
+      <p>📧 Email: healthunit@murangauniversity.ac.ke</p>
+      <p>📍 Location: Murang'a University, P.O Box 75-10200 Murang'a, Kenya</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Murang'a University Health Unit | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const msg = document.getElementById('feedbackMsg').value.trim();
+      if (!msg) return;
+      document.getElementById('feedbackStatus').style.display = 'block';
+      document.getElementById('feedbackMsg').value = '';
+    });
+  </script>
+
 </body>
 </html>

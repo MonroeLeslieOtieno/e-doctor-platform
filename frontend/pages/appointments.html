@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .review-box {
+            background:#f9f9f9; 
+            padding:15px; 
+            border-left:5px solid limegreen; 
+            margin-bottom:20px; 
+            display:none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Patient Appointment Booking</h2>
+
+<form action="../../backend/api/appointment.php" method="POST">
+
+    <!-- Student Selection -->
+    <label>Student Registration</label>
+    <select name="student_id" id="studentList" required onchange="showStudentInfo()">
+        <option value="">-- Select Student --</option>
+        <?php
+        include "../../config/db.php"; // Adjust path if needed
+        $students = mysqli_query($conn, "SELECT * FROM students ORDER BY fullname");
+        while($row = mysqli_fetch_assoc($students)){
+            echo '<option value="'.$row['id'].'" data-phone="'.$row['phone'].'" data-age="'.$row['age'].'" data-condition="'.$row['previous_condition'].'">';
+            echo $row['reg_number'] . " - " . $row['fullname'];
+            echo '</option>';
+        }
+        ?>
+    </select>
+
+    <!-- Student Quick Review -->
+    <div class="review-box" id="studentReview">
+        <h3>Student Quick Review</h3>
+        <p><strong>Phone:</strong> <span id="phone"></span></p>
+        <p><strong>Age:</strong> <span id="age"></span></p>
+        <p><strong>Previous Condition:</strong> <span id="condition"></span></p>
+    </div>
+
+    <!-- Doctor Selection -->
+    <label>Doctor</label>
+    <select name="doctor_id" required>
+        <option value="">-- Select Doctor --</option>
+        <?php
+        $doctors = mysqli_query($conn, "SELECT * FROM doctors_profile ORDER BY full_name");
+        while($doc = mysqli_fetch_assoc($doctors)){
+            echo '<option value="'.$doc['id'].'">'.$doc['full_name'] . " - " . $doc['practice'].'</option>';
+        }
+        ?>
+    </select>
+
+    <!-- Appointment Details -->
+    <label>Appointment Date</label>
+    <input type="date" name="appointment_date" required>
+
+    <label>Appointment Time</label>
+    <input type="time" name="appointment_time" required>
+
+    <label>Reason for Visit</label>
+    <textarea name="reason"></textarea>
+
+    <button type="submit">Book Appointment</button>
+
+</form>
+
+<script>
+function showStudentInfo(){
+    const select = document.getElementById('studentList');
+    const option = select.options[select.selectedIndex];
+
+    if(option.value === ""){
+        document.getElementById('studentReview').style.display = 'none';
+        return;
+    }
+
+    document.getElementById('phone').textContent = option.getAttribute('data-phone');
+    document.getElementById('age').textContent = option.getAttribute('data-age');
+    document.getElementById('condition').textContent = option.getAttribute('data-condition');
+    document.getElementById('studentReview').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

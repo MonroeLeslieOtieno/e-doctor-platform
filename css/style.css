@@ -1,0 +1,92 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin:0;
+    background:#f4f6f9;
+}
+
+header{
+    background:#0077b6;
+    color:white;
+    padding:15px;
+}
+
+header h1{
+    margin:0;
+}
+
+nav{
+    margin-top:10px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-right:15px;
+    font-weight:bold;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap:20px;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+.card h2{
+    margin-bottom:10px;
+}
+
+.card a{
+    display:inline-block;
+    margin-top:10px;
+    padding:8px 15px;
+    background:#0077b6;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+.card a:hover{
+    background:#023e8a;
+}
+
+footer{
+    text-align:center;
+    padding:15px;
+    background:#0077b6;
+    color:white;
+}
+form{
+max-width:500px;
+margin:20px auto;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+input, textarea, select{
+padding:10px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+padding:10px;
+background:#0077b6;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#023e8a;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patient Consultation</title>
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+<h2>Patient Consultation</h2>
+
+<form action="../../backend/api/consultation.php" method="POST">
+<label>Select or Type Patient Name</label>
+
+<input list="names" name="person_name" placeholder="Select or type name">
+
+<datalist id="names">
+<option value="John Mwangi">
+<option value="Mary Wanjiku">
+<option value="James Otieno">
+<option value="Faith Achieng">
+<option value="David Kamau">
+</datalist>
+<label>Patient ID</label>
+<input type="text" name="patient_id" required>
+
+<label>Doctor</label>
+<input type="text" name="doctor" required>
+
+<label>Symptoms</label>
+<textarea name="symptoms" required></textarea>
+
+<label>Diagnosis</label>
+<textarea name="diagnosis" required></textarea>
+
+<label>Consultation Notes</label>
+<textarea name="notes"></textarea>
+
+<button type="submit">Save Consultation</button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Consultation | MUT E-Doctor Platform</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Murang'a University E-Doctor Platform</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="appointments.html">Appointments</a>
+            <a href="consultation.html">Consultation</a>
+            <a href="doctors-registration.html">Doctors Registration</a>
+            <a href="labs.html">Lab</a>
+            <a href="prescriptions.html">Prescription</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Patient Consultation</h2>
+
+        <form id="consultationForm" action="../../backend/api/consultation.php" method="POST">
+
+            <label for="patient_name">Select or Type Patient Name</label>
+            <input list="names" id="patient_name" name="patient_name" placeholder="Select or type name" required>
+            <datalist id="names">
+                <option value="John Mwangi">
+                <option value="Mary Wanjiku">
+                <option value="James Otieno">
+                <option value="Faith Achieng">
+                <option value="David Kamau">
+            </datalist>
+
+            <label for="patient_id">Patient ID</label>
+            <input type="text" id="patient_id" name="patient_id" required>
+
+            <label for="doctor">Doctor</label>
+            <input type="text" id="doctor" name="doctor" required>
+
+            <label for="symptoms">Symptoms</label>
+            <textarea id="symptoms" name="symptoms" required></textarea>
+
+            <label for="diagnosis">Diagnosis</label>
+            <textarea id="diagnosis" name="diagnosis" required></textarea>
+
+            <label for="notes">Consultation Notes</label>
+            <textarea id="notes" name="notes"></textarea>
+
+            <button type="submit">Save Consultation</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MURANG'A UNIVERSITY.</p>
+    </footer>
+
+</body>
+
+</html>
