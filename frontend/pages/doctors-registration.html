@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Doctor Registration</title>
-<link rel="stylesheet" href="../../css/style.css">
+    <title>Doctor Registration</title>
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
 
-<h2>Doctor Registration</h2>
+    <h2>Doctor Registration</h2>
 
-<form action="../../backend/api/registerDoctor.php" method="POST">
+    <form action="../../backend-php/api/registerDoctor.php" method="POST">
 
-<label>Doctor Name</label>
-<input type="text" name="doctor_name" required>
+        <label>Doctor Name</label>
+        <input type="text" name="doctor_name" required>
 
-<label>Medical License Number</label>
-<input type="text" name="medical_number" required>
+        <label>Medical License Number</label>
+        <input type="text" name="medical_number" required>
 
-<label>Specialization</label>
-<input type="text" name="specialization" required>
+        <label>Specialization</label>
+        <input type="text" name="specialization" required>
 
-<label>Phone</label>
-<input type="text" name="phone">
+        <label>Phone</label>
+        <input type="text" name="phone">
 
-<button type="submit">Register Doctor</button>
+        <button type="submit">Register Doctor</button>
 
-</form>
+    </form>
 
 </body>
+
 </html>

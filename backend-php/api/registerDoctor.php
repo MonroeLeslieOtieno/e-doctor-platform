@@ -6,7 +6,7 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-include '../../config/db.php';
+include '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -35,7 +35,6 @@ $stmt->bind_param("sssss", $doctor_name, $medical_number, $practice, $specializa
 if ($stmt->execute()) {
     echo json_encode(['success' => true, 'message' => 'Doctor registered successfully', 'id' => $stmt->insert_id]);
 } else {
-    // Handle duplicate medical_number gracefully
     if ($conn->errno === 1062) {
         http_response_code(409);
         echo json_encode(['error' => 'A doctor with this medical license number already exists']);

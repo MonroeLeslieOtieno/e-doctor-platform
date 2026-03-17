@@ -2,12 +2,12 @@
 // ============================================================
 // API: Get Patients (for dropdown population)
 // Method: GET
-// Returns: JSON array of patients from appointments table
+// Returns: JSON array of patients
 // ============================================================
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-include '../../config/db.php';
+include '../config/db.php';
 
 $sql    = "SELECT DISTINCT patient_name, patient_id FROM appointments ORDER BY patient_name";
 $result = $conn->query($sql);

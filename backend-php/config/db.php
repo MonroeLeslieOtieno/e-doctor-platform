@@ -1,9 +1,8 @@
 <?php
 // ============================================================
-// Database Configuration
+// Database Configuration — backend-php/config/db.php
 // Reads credentials from environment variables.
-// If running without a .env loader, set the variables in your
-// web server (Apache/Nginx) or XAMPP's php.ini.
+// Set these in your web server config or a .env loader.
 // ============================================================
 
 $host     = getenv('DB_HOST')     ?: 'localhost';
