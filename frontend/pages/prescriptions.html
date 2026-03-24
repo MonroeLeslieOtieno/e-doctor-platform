@@ -23,31 +23,115 @@
     </header>
 
     <main>
-        <h2>Patient Prescription</h2>
+        <h2>Prescriptions Management</h2>
+        <button onclick="document.getElementById('addFormContainer').style.display='block'"
+            style="background-color:var(--primary-color, #007bff);color:white;padding:10px 15px;border:none;border-radius:4px;cursor:pointer;margin-bottom:15px;">+
+            Add New Prescription</button>
 
-        <form id="prescriptionForm" action="../../backend-php/api/prescriptions.php" method="POST">
+        <div id="addFormContainer" class="form-container"
+            style="display:none; margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background: #fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>New Prescription</h3>
+                <button type="button" onclick="document.getElementById('addFormContainer').style.display='none'"
+                    style="background:transparent;border:none;font-size:16px;cursor:pointer;">&times;</button>
+            </div>
+            <form id="prescriptionForm">
 
-            <label for="patient_name">Patient Name</label>
-            <input type="text" id="patient_name" name="patient_name" required>
+                <label for="patient_name">Patient Name</label>
+                <input type="text" id="patient_name" name="patient_name" required>
 
-            <label for="patient_id">Patient ID</label>
-            <input type="text" id="patient_id" name="patient_id">
+                <label for="patient_id">Patient ID</label>
+                <input type="text" id="patient_id" name="patient_id">
 
-            <label for="doctor">Doctor</label>
-            <input type="text" id="doctor" name="doctor" required>
+                <label for="doctor">Doctor</label>
+                <input type="text" id="doctor" name="doctor" required>
 
-            <label for="medicine">Medicine</label>
-            <input type="text" id="medicine" name="medicine" required>
+                <label for="medicine">Medicine</label>
+                <input type="text" id="medicine" name="medicine" required>
 
-            <label for="dosage">Dosage</label>
-            <input type="text" id="dosage" name="dosage" placeholder="e.g. 2 tablets daily">
+                <label for="dosage">Dosage</label>
+                <input type="text" id="dosage" name="dosage" placeholder="e.g. 2 tablets daily">
 
-            <label for="instructions">Instructions</label>
-            <textarea id="instructions" name="instructions"></textarea>
+                <label for="instructions">Instructions</label>
+                <textarea id="instructions" name="instructions"></textarea>
 
-            <button type="submit">Save Prescription</button>
-        </form>
+                <button type="submit">Save Prescription</button>
+                <button type="button"
+                    onclick="document.getElementById('addFormContainer').style.display='none'">Cancel</button>
+            </form>
+        </div>
+
+        <!-- Prescriptions Table -->
+        <h3>Existing Prescriptions</h3>
+        <table border="1" style="width:100%; border-collapse: collapse; margin-top: 10px;" id="prescriptionsTable">
+            <thead>
+                <tr style="background:#f2f2f2; text-align:left;">
+                    <th style="padding:8px;">Date</th>
+                    <th style="padding:8px;">Patient Name</th>
+                    <th style="padding:8px;">Doctor</th>
+                    <th style="padding:8px;">Medicine</th>
+                    <th style="padding:8px;">Dosage & Instructions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
     </main>
+
+    <script>
+        function loadPrescriptions() {
+            fetch("../../backend-php/api/prescriptions.php")
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById('prescriptionsTable').querySelector('tbody');
+                    tbody.innerHTML = '';
+                    if (!data || data.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" style="padding:8px; text-align:center;">No prescriptions found.</td></tr>';
+                        return;
+                    }
+                    data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="padding:8px;">${item.created_at ? item.created_at.substring(0, 10) : ''}</td>
+                            <td style="padding:8px;">${item.patient_name || 'N/A'}</td>
+                            <td style="padding:8px;">${item.doctor || 'N/A'}</td>
+                            <td style="padding:8px;">${item.medicine || ''}</td>
+                            <td style="padding:8px;">${(item.dosage || '')} - ${(item.instructions || '')}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(err => console.error("Error fetching data:", err));
+        }
+
+        document.getElementById('prescriptionForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new URLSearchParams(new FormData(this));
+            fetch("../../backend-php/api/prescriptions.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Prescription saved successfully!');
+                        this.reset();
+                        document.getElementById('addFormContainer').style.display = 'none';
+                        loadPrescriptions();
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(err => {
+                    alert('An error occurred.');
+                    console.error(err);
+                });
+        });
+
+        loadPrescriptions();
+    </script>
 
     <footer>
         <p>&copy; 2026 MURANG'A UNIVERSITY.</p>

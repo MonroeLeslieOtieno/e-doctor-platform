@@ -23,37 +23,121 @@
     </header>
 
     <main>
-        <h2>Lab Test Request</h2>
+        <h2>Lab Requests Management</h2>
+        <button onclick="document.getElementById('addFormContainer').style.display='block'"
+            style="background-color:var(--primary-color, #007bff);color:white;padding:10px 15px;border:none;border-radius:4px;cursor:pointer;margin-bottom:15px;">+
+            Add New Lab Request</button>
 
-        <form id="labForm" action="../../backend-php/api/labRequest.php" method="POST">
+        <div id="addFormContainer" class="form-container"
+            style="display:none; margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background: #fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>New Lab Request</h3>
+                <button type="button" onclick="document.getElementById('addFormContainer').style.display='none'"
+                    style="background:transparent;border:none;font-size:16px;cursor:pointer;">&times;</button>
+            </div>
+            <form id="labForm">
 
-            <label for="patient_name">Patient Name</label>
-            <input type="text" id="patient_name" name="patient_name" required>
+                <label for="patient_name">Patient Name</label>
+                <input type="text" id="patient_name" name="patient_name" required>
 
-            <label for="patient_id">Patient ID</label>
-            <input type="text" id="patient_id" name="patient_id">
+                <label for="patient_id">Patient ID</label>
+                <input type="text" id="patient_id" name="patient_id">
 
-            <label for="doctor">Doctor</label>
-            <input type="text" id="doctor" name="doctor" required>
+                <label for="doctor">Doctor</label>
+                <input type="text" id="doctor" name="doctor" required>
 
-            <label for="test_type">Test Type</label>
-            <select id="test_type" name="test_type" required>
-                <option value="">-- Select Test --</option>
-                <option value="Blood Test">Blood Test</option>
-                <option value="Urine Test">Urine Test</option>
-                <option value="X-Ray">X-Ray</option>
-                <option value="Malaria Test">Malaria Test</option>
-                <option value="Covid Test">Covid Test</option>
-                <option value="Ultrasound">Ultrasound</option>
-                <option value="Other">Other</option>
-            </select>
+                <label for="test_type">Test Type</label>
+                <select id="test_type" name="test_type" required>
+                    <option value="">-- Select Test --</option>
+                    <option value="Blood Test">Blood Test</option>
+                    <option value="Urine Test">Urine Test</option>
+                    <option value="X-Ray">X-Ray</option>
+                    <option value="Malaria Test">Malaria Test</option>
+                    <option value="Covid Test">Covid Test</option>
+                    <option value="Ultrasound">Ultrasound</option>
+                    <option value="Other">Other</option>
+                </select>
 
-            <label for="notes">Additional Notes</label>
-            <textarea id="notes" name="notes"></textarea>
+                <label for="notes">Additional Notes</label>
+                <textarea id="notes" name="notes"></textarea>
 
-            <button type="submit">Submit Request</button>
-        </form>
+                <button type="submit">Submit Request</button>
+                <button type="button"
+                    onclick="document.getElementById('addFormContainer').style.display='none'">Cancel</button>
+            </form>
+        </div>
+
+        <!-- Labs Table -->
+        <h3>Existing Lab Requests</h3>
+        <table border="1" style="width:100%; border-collapse: collapse; margin-top: 10px;" id="labsTable">
+            <thead>
+                <tr style="background:#f2f2f2; text-align:left;">
+                    <th style="padding:8px;">Date</th>
+                    <th style="padding:8px;">Patient Name</th>
+                    <th style="padding:8px;">Test Type</th>
+                    <th style="padding:8px;">Doctor</th>
+                    <th style="padding:8px;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
     </main>
+
+    <script>
+        function loadLabs() {
+            fetch("../../backend-php/api/labRequest.php")
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById('labsTable').querySelector('tbody');
+                    tbody.innerHTML = '';
+                    if (!data || data.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" style="padding:8px; text-align:center;">No lab requests found.</td></tr>';
+                        return;
+                    }
+                    data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="padding:8px;">${item.created_at ? item.created_at.substring(0, 10) : ''}</td>
+                            <td style="padding:8px;">${item.patient_name || 'N/A'}</td>
+                            <td style="padding:8px;">${item.test_type || ''}</td>
+                            <td style="padding:8px;">${item.doctor || 'N/A'}</td>
+                            <td style="padding:8px;">${item.status || 'Requested'}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(err => console.error("Error fetching data:", err));
+        }
+
+        document.getElementById('labForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new URLSearchParams(new FormData(this));
+            fetch("../../backend-php/api/labRequest.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Lab request saved successfully!');
+                        this.reset();
+                        document.getElementById('addFormContainer').style.display = 'none';
+                        loadLabs();
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(err => {
+                    alert('An error occurred.');
+                    console.error(err);
+                });
+        });
+
+        loadLabs();
+    </script>
 
     <footer>
         <p>&copy; 2026 MURANG'A UNIVERSITY.</p>

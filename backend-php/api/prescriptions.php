@@ -8,6 +8,19 @@ header('Access-Control-Allow-Origin: *');
 
 include '../config/db.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $sql = "SELECT * FROM prescriptions ORDER BY created_at DESC";
+    $result = $conn->query($sql);
+    $data = [];
+    if($result){
+        while($row = $result->fetch_assoc()){
+            $data[] = $row;
+        }
+    }
+    echo json_encode($data);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'Method not allowed']);

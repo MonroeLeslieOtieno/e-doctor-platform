@@ -8,6 +8,23 @@ header('Access-Control-Allow-Origin: *');
 
 include '../config/db.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $sql = "SELECT a.*, s.fullname as student_name, d.doctor_name 
+            FROM appointments a
+            LEFT JOIN students s ON a.student_id = s.id
+            LEFT JOIN doctors_profile d ON a.doctor_id = d.id
+            ORDER BY a.appointment_date DESC";
+    $result = $conn->query($sql);
+    $data = [];
+    if($result){
+        while($row = $result->fetch_assoc()){
+            $data[] = $row;
+        }
+    }
+    echo json_encode($data);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['error' => 'Method not allowed']);

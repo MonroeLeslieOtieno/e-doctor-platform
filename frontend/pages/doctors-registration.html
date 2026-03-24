@@ -8,26 +8,107 @@
 
 <body>
 
-    <h2>Doctor Registration</h2>
+    <h2>Doctors Management</h2>
+    <button onclick="document.getElementById('addFormContainer').style.display='block'"
+        style="background-color:var(--primary-color, #007bff);color:white;padding:10px 15px;border:none;border-radius:4px;cursor:pointer;margin-bottom:15px;">+
+        Register New Doctor</button>
 
-    <form action="../../backend-php/api/registerDoctor.php" method="POST">
+    <div id="addFormContainer" class="form-container"
+        style="display:none; margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background: #fff;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>New Doctor Registration</h3>
+            <button type="button" onclick="document.getElementById('addFormContainer').style.display='none'"
+                style="background:transparent;border:none;font-size:16px;cursor:pointer;">&times;</button>
+        </div>
+        <form id="doctorForm">
 
-        <label>Doctor Name</label>
-        <input type="text" name="doctor_name" required>
+            <label>Doctor Name</label>
+            <input type="text" name="doctor_name" required>
 
-        <label>Medical License Number</label>
-        <input type="text" name="medical_number" required>
+            <label>Medical License Number</label>
+            <input type="text" name="medical_number" required>
 
-        <label>Specialization</label>
-        <input type="text" name="specialization" required>
+            <label>Specialization</label>
+            <input type="text" name="specialization" required>
 
-        <label>Phone</label>
-        <input type="text" name="phone">
+            <label>Phone</label>
+            <input type="text" name="phone">
 
-        <button type="submit">Register Doctor</button>
+            <button type="submit">Register Doctor</button>
+            <button type="button"
+                onclick="document.getElementById('addFormContainer').style.display='none'">Cancel</button>
 
-    </form>
+        </form>
+    </div>
 
-</body>
+    <!-- Doctors Table -->
+    <h3>Registered Doctors</h3>
+    <table border="1" style="width:100%; border-collapse: collapse; margin-top: 10px;" id="doctorsTable">
+        <thead>
+            <tr style="background:#f2f2f2; text-align:left;">
+                <th style="padding:8px;">Name</th>
+                <th style="padding:8px;">License Number</th>
+                <th style="padding:8px;">Specialization</th>
+                <th style="padding:8px;">Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dynamic rows will be added here -->
+        </tbody>
+    </table>
+
+    <script>
+        function loadDoctors() {
+            fetch("../../backend-php/api/getDoctors.php")
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById('doctorsTable').querySelector('tbody');
+                    tbody.innerHTML = '';
+                    if (!data || data.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="4" style="padding:8px; text-align:center;">No doctors registered.</td></tr>';
+                        return;
+                    }
+                    data.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="padding:8px;">${item.doctor_name || 'N/A'}</td>
+                            <td style="padding:8px;">${item.medical_number || 'N/A'}</td>
+                            <td style="padding:8px;">${item.specialization || 'N/A'}</td>
+                            <td style="padding:8px;">${item.phone || 'N/A'}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(err => console.error("Error fetching data:", err));
+        }
+
+        document.getElementById('doctorForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new URLSearchParams(new FormData(this));
+            fetch("../../backend-php/api/registerDoctor.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Doctor registered successfully!');
+                        this.reset();
+                        document.getElementById('addFormContainer').style.display = 'none';
+                        loadDoctors();
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(err => {
+                    alert('An error occurred.');
+                    console.error(err);
+                });
+        });
+
+        loadDoctors();
+    </script>
+
 
 </html>
