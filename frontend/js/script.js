@@ -2,25 +2,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const studentList = document.getElementById("studentList");
 
-    fetch("http://localhost/student_api/students.php")
-    .then(response => response.json())
-    .then(data => {
+    fetch("../../backend-php/api/getStudents.php")
+        .then(response => response.json())
+        .then(data => {
 
-        studentList.innerHTML = '<option value="">Select Student</option>';
+            studentList.innerHTML = '<option value="">Select Student</option>';
 
-        data.forEach(student => {
+            data.forEach(student => {
 
-            let option = document.createElement("option");
+                let option = document.createElement("option");
 
-            option.value = student.reg_number;
-            option.textContent = student.reg_number + " - " + student.name;
+                option.value = student.reg_number;
+                option.textContent = student.reg_number + " - " + student.fullname;
 
-            studentList.appendChild(option);
+                studentList.appendChild(option);
+            });
+
+        })
+        .catch(error => {
+            console.error("Error fetching students:", error);
         });
-
-    })
-    .catch(error => {
-        console.error("Error fetching students:", error);
-    });
 
 });

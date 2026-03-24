@@ -17,58 +17,74 @@
 
 <body>
 
-    <h2>Patient Appointment Booking</h2>
+    <h2>Appointments Management</h2>
+    <button onclick="document.getElementById('addFormContainer').style.display='block'"
+        style="background-color:var(--primary-color, #007bff);color:white;padding:10px 15px;border:none;border-radius:4px;cursor:pointer;margin-bottom:15px;">+
+        Book New Appointment</button>
 
-    <form action="../../backend-php/api/appointment.php" method="POST">
-
-        <!-- Student Selection -->
-        <label>Student Registration</label>
-        <select name="student_id" id="studentList" required onchange="showStudentInfo()">
-            <option value="">-- Select Student --</option>
-            <?php
-        include "../../config/db.php"; // Adjust path if needed
-        $students = mysqli_query($conn, "SELECT * FROM students ORDER BY fullname");
-        while($row = mysqli_fetch_assoc($students)){
-            echo '<option value="'.$row['id'].'" data-phone="'.$row['phone'].'" data-age="'.$row['age'].'" data-condition="'.$row['previous_condition'].'">';
-            echo $row['reg_number'] . " - " . $row['fullname'];
-            echo '</option>';
-        }
-        ?>
-        </select>
-
-        <!-- Student Quick Review -->
-        <div class="review-box" id="studentReview">
-            <h3>Student Quick Review</h3>
-            <p><strong>Phone:</strong> <span id="phone"></span></p>
-            <p><strong>Age:</strong> <span id="age"></span></p>
-            <p><strong>Previous Condition:</strong> <span id="condition"></span></p>
+    <div id="addFormContainer" class="form-container"
+        style="display:none; margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; background: #fff;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>Book Appointment</h3>
+            <button type="button" onclick="document.getElementById('addFormContainer').style.display='none'"
+                style="background:transparent;border:none;font-size:16px;cursor:pointer;">&times;</button>
         </div>
+        <form id="appointmentForm">
 
-        <!-- Doctor Selection -->
-        <label>Doctor</label>
-        <select name="doctor_id" required>
-            <option value="">-- Select Doctor --</option>
-            <?php
-        $doctors = mysqli_query($conn, "SELECT * FROM doctors_profile ORDER BY full_name");
-        while($doc = mysqli_fetch_assoc($doctors)){
-            echo '<option value="'.$doc['id'].'">'.$doc['full_name'] . " - " . $doc['practice'].'</option>';
-        }
-        ?>
-        </select>
+            <!-- Student Selection -->
+            <label>Student Registration</label>
+            <select name="student_id" id="studentList" required onchange="showStudentInfo()">
+                <option value="">-- Select Student --</option>
+            </select>
 
-        <!-- Appointment Details -->
-        <label>Appointment Date</label>
-        <input type="date" name="appointment_date" required>
+            <!-- Student Quick Review -->
+            <div class="review-box" id="studentReview">
+                <h3>Student Quick Review</h3>
+                <p><strong>Phone:</strong> <span id="phone"></span></p>
+                <p><strong>Age:</strong> <span id="age"></span></p>
+                <p><strong>Previous Condition:</strong> <span id="condition"></span></p>
+            </div>
 
-        <label>Appointment Time</label>
-        <input type="time" name="appointment_time" required>
+            <!-- Doctor Selection -->
+            <label>Doctor</label>
+            <select name="doctor_id" id="doctorList" required>
+                <option value="">-- Select Doctor --</option>
+            </select>
 
-        <label>Reason for Visit</label>
-        <textarea name="reason"></textarea>
+            <!-- Appointment Details -->
+            <label>Appointment Date</label>
+            <input type="date" name="appointment_date" required>
 
-        <button type="submit">Book Appointment</button>
+            <label>Appointment Time</label>
+            <input type="time" name="appointment_time" required>
 
-    </form>
+            <label>Reason for Visit</label>
+            <textarea name="reason"></textarea>
+
+            <button type="submit">Book Appointment</button>
+            <button type="button"
+                onclick="document.getElementById('addFormContainer').style.display='none'">Cancel</button>
+
+        </form>
+    </div>
+
+    <!-- Appointments Table -->
+    <h3>Existing Appointments</h3>
+    <table border="1" style="width:100%; border-collapse: collapse; margin-top: 10px;" id="appointmentsTable">
+        <thead>
+            <tr style="background:#f2f2f2; text-align:left;">
+                <th style="padding:8px;">Date</th>
+                <th style="padding:8px;">Time</th>
+                <th style="padding:8px;">Student</th>
+                <th style="padding:8px;">Doctor</th>
+                <th style="padding:8px;">Reason</th>
+                <th style="padding:8px;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dynamic rows will be added here -->
+        </tbody>
+    </table>
 
     <script>
         function showStudentInfo() {
@@ -85,6 +101,96 @@
             document.getElementById('condition').textContent = option.getAttribute('data-condition');
             document.getElementById('studentReview').style.display = 'block';
         }
+
+        // Fetch Students
+        fetch("../../backend-php/api/getStudents.php")
+            .then(res => res.json())
+            .then(data => {
+                const studentList = document.getElementById("studentList");
+                data.forEach(student => {
+                    const option = document.createElement("option");
+                    option.value = student.id;
+                    option.setAttribute("data-phone", student.phone || 'N/A');
+                    option.setAttribute("data-age", student.age || 'N/A');
+                    option.setAttribute("data-condition", student.previous_condition || 'None');
+                    option.textContent = student.reg_number + " - " + student.fullname;
+                    studentList.appendChild(option);
+                });
+            })
+            .catch(err => console.error("Error fetching students:", err));
+
+        // Fetch Doctors
+        fetch("../../backend-php/api/getDoctors.php")
+            .then(res => res.json())
+            .then(data => {
+                const doctorList = document.getElementById("doctorList");
+                data.forEach(doc => {
+                    const option = document.createElement("option");
+                    option.value = doc.id;
+                    option.textContent = doc.doctor_name + (doc.practice ? " - " + doc.practice : "");
+                    doctorList.appendChild(option);
+                });
+            })
+            .catch(err => console.error("Error fetching doctors:", err));
+
+        // Load Appointments
+        function loadAppointments() {
+            fetch("../../backend-php/api/appointment.php")
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById('appointmentsTable').querySelector('tbody');
+                    tbody.innerHTML = '';
+                    if (!data || data.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" style="padding:8px; text-align:center;">No appointments found.</td></tr>';
+                        return;
+                    }
+                    data.forEach(app => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="padding:8px;">${app.appointment_date}</td>
+                            <td style="padding:8px;">${app.appointment_time}</td>
+                            <td style="padding:8px;">${app.student_name || 'N/A'}</td>
+                            <td style="padding:8px;">${app.doctor_name || 'N/A'}</td>
+                            <td style="padding:8px;">${app.reason || ''}</td>
+                            <td style="padding:8px;">${app.status || 'Pending'}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(err => console.error("Error fetching appointments:", err));
+        }
+
+        // Handle AJAX Submit
+        document.getElementById('appointmentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new URLSearchParams(new FormData(this));
+            fetch("../../backend-php/api/appointment.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Appointment booked successfully!');
+                        this.reset();
+                        document.getElementById('addFormContainer').style.display = 'none';
+                        document.getElementById('studentReview').style.display = 'none';
+                        loadAppointments();
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(err => {
+                    alert('An error occurred submitting the booking.');
+                    console.error(err);
+                });
+        });
+
+        // Initial Load
+        loadAppointments();
     </script>
 
 </body>
