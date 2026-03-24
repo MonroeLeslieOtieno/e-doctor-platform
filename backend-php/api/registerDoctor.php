@@ -30,6 +30,12 @@ $stmt = $conn->prepare(
     "INSERT INTO doctors_profile (doctor_name, medical_number, practice, specialization, phone)
      VALUES (?, ?, ?, ?, ?)"
 );
+
+if (!$stmt) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Prepare failed: ' . $conn->error]);
+    exit;
+}
 $stmt->bind_param("sssss", $doctor_name, $medical_number, $practice, $specialization, $phone);
 
 if ($stmt->execute()) {
