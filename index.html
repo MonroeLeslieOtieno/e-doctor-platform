@@ -1,101 +1,831 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUT E-Doctor Platform | Murang'a University Health Unit</title>
-  <meta name="description" content="Murang'a University E-Doctor Platform — book appointments, consult doctors, manage prescriptions and lab tests online.">
+  <title>MUT E-Doctor | Murang'a University Health Unit</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <span>🏛️ Murang'a University of Technology — Health Unit Portal</span>
+    <span>📞 Emergency: +254 060 2023 000 &nbsp;|&nbsp; <a href="https://www.mut.ac.ke" target="_blank">mut.ac.ke
+        ↗</a></span>
+  </div>
+
+  <!-- HEADER -->
   <header>
-    <h1>MUT E-Doctor Platform</h1>
-    <p>Murang'a University Health Unit</p>
-    <nav>
-      <a href="frontend/pages/home.html">Dashboard</a>
-      <a href="frontend/pages/appointments.html">Appointments</a>
-      <a href="frontend/pages/consultation.html">Consultation</a>
-      <a href="frontend/pages/labs.html">Lab Tests</a>
-      <a href="frontend/pages/prescriptions.html">Prescriptions</a>
-      <a href="frontend/pages/doctors-registration.html">Doctors</a>
+    <a class="logo-area" href="#">
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAAB49AnCAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFf39/AAAA0U76zAAAAABJREFUeNrs2UENACAAwLCv/TsbBy0mB9YCOWbX7vX/AAAAAMCQAgEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAELAgwABX79InmQAAAABJRU5ErkJggg=="
+        alt="MUT Logo"
+        style="width:54px;height:54px;object-fit:contain;border-radius:50%;background:white;padding:2px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.2)">
+      <div class="logo-text">
+        <div class="inst">Murang'a University of Technology</div>
+        <div class="sys">E-<span>Doctor</span> Platform</div>
+      </div>
+    </a>
+
+    <nav class="header-nav">
+      <button class="nav-btn active" onclick="showPage('dashboard',this)"><span
+          class="icon">🏠</span><span>Dashboard</span></button>
+      <button class="nav-btn notif" onclick="showPage('appointments',this)"><span
+          class="icon">📅</span><span>Appointments</span>
+        <div class="notif-dot"></div>
+      </button>
+      <button class="nav-btn" onclick="showPage('consultation',this)"><span
+          class="icon">🩺</span><span>Consultation</span></button>
+      <button class="nav-btn" onclick="showPage('lab',this)"><span class="icon">🔬</span><span>Lab</span></button>
+      <button class="nav-btn" onclick="showPage('pharmacy',this)"><span
+          class="icon">💊</span><span>Pharmacy</span></button>
+      <button class="nav-btn" onclick="showPage('staff',this)"><span class="icon">👥</span><span>Staff</span></button>
     </nav>
+
+    <div class="header-actions">
+      <button class="btn-gold" onclick="alert('Profile/Settings feature coming soon.')">👤 User Profile</button>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h2>Welcome to Murang'a University E-Doctor Platform</h2>
-      <p>
-        Murang'a University is committed to providing quality healthcare services to students, staff, and faculty.
-        Our E-Doctor Platform allows you to book appointments, consult doctors, view prescriptions
-        and lab tests conveniently online.
-      </p>
-    </section>
+  <!-- APP BODY -->
+  <div class="app-body">
 
-    <!-- Quick Access -->
-    <section>
-      <h2>Quick Access</h2>
-      <div class="dashboard">
-        <div class="card">
-          <h2>📅 Appointments</h2>
-          <p>Schedule and manage patient appointments.</p>
-          <a href="frontend/pages/appointments.html">Book Appointment</a>
-        </div>
-        <div class="card">
-          <h2>🩺 Consultation</h2>
-          <p>Record patient diagnosis and consultation notes.</p>
-          <a href="frontend/pages/consultation.html">Open</a>
-        </div>
-        <div class="card">
-          <h2>🧪 Laboratory</h2>
-          <p>Manage lab tests and results.</p>
-          <a href="frontend/pages/labs.html">Open</a>
-        </div>
-        <div class="card">
-          <h2>💊 Prescriptions</h2>
-          <p>Create and manage patient prescriptions.</p>
-          <a href="frontend/pages/prescriptions.html">Open</a>
-        </div>
-        <div class="card">
-          <h2>👨‍⚕️ Doctors</h2>
-          <p>Register doctors and consultants.</p>
-          <a href="frontend/pages/doctors-registration.html">Open</a>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Main Menu</div>
+      <button class="s-btn active" onclick="showPage('dashboard',this,true)"><span
+          class="s-icon">🏠</span>Dashboard</button>
+      <button class="s-btn" onclick="showPage('appointments',this,true)"><span
+          class="s-icon">📅</span>Appointments</button>
+      <button class="s-btn" onclick="showPage('consultation',this,true)"><span
+          class="s-icon">🩺</span>Consultation</button>
+      <button class="s-btn" onclick="showPage('lab',this,true)"><span class="s-icon">🔬</span>Laboratory</button>
+      <button class="s-btn" onclick="showPage('pharmacy',this,true)"><span class="s-icon">💊</span>Pharmacy</button>
+      <button class="s-btn" onclick="showPage('staff',this,true)"><span class="s-icon">👥</span>Staff Mgmt</button>
+
+      <div class="sidebar-label" style="margin-top:8px">Reports</div>
+      <button class="s-btn" onclick="alert('Reports module — coming soon')"><span
+          class="s-icon">📊</span>Analytics</button>
+      <button class="s-btn" onclick="alert('Settings — coming soon')"><span class="s-icon">⚙️</span>Settings</button>
+
+      <div class="sidebar-footer">
+        <div class="user-chip">
+          <div class="user-av">AD</div>
+          <div class="user-info">
+            <div class="name">Administrator</div>
+            <div class="role">MUT Health Unit</div>
+          </div>
         </div>
       </div>
-    </section>
+    </aside>
 
-    <!-- Feedback -->
-    <section>
-      <h2>Feedback</h2>
-      <form class="feedback-form" id="feedbackForm">
-        <textarea id="feedbackMsg" placeholder="Your feedback or suggestions..." required></textarea>
-        <button type="submit">Submit Feedback</button>
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- ══ DASHBOARD ══ -->
+      <div class="page active" id="page-dashboard">
+        <div class="dash-hero">
+          <div class="hero-text">
+            <div class="greeting">Welcome back 👋</div>
+            <h2>MUT Health Unit<br>E-Doctor System</h2>
+            <p>Integrated health management for students and staff of Murang'a University of Technology.</p>
+            <div class="hero-badge">🟢 System Online — <span id="current-date"></span></div>
+          </div>
+          <div class="hero-visual">🏥</div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-ic bg-navy">📅</div>
+            <div class="stat-body">
+              <div class="num" id="stat-appointments">...</div>
+              <div class="lbl">Total Appointments</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-ic bg-gold">⏳</div>
+            <div class="stat-body">
+              <div class="num" id="stat-consultations">...</div>
+              <div class="lbl">Total Consultations</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-ic bg-grn">✅</div>
+            <div class="stat-body">
+              <div class="num" id="stat-doctors">...</div>
+              <div class="lbl">Registered Doctors</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-ic bg-blue">🔬</div>
+            <div class="stat-body">
+              <div class="num" id="stat-labs">...</div>
+              <div class="lbl">Lab Records</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <!-- Recent appointments -->
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">📅 Recent Activity</span>
+              <button class="btn btn-outline btn-sm" onclick="showPage('appointments',null,false)">View All</button>
+            </div>
+            <div id="recent-activity-list" style="display:flex;flex-direction:column;gap:10px">
+              <!-- Dynamic recent records -->
+              <div class="empty-state">
+                <p>Loading latest records...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">⚡ Quick Actions</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <button class="btn btn-primary" style="justify-content:center" onclick="openModal('modal-book')">📅 Book
+                Appointment</button>
+              <button class="btn btn-accent" style="justify-content:center"
+                onclick="showPage('consultation',null,false)">🩺 Start Consultation</button>
+              <button class="btn btn-outline" style="justify-content:center" onclick="showPage('lab',null,false)">🔬
+                Request Lab Test</button>
+              <button class="btn btn-outline" style="justify-content:center"
+                onclick="showPage('pharmacy',null,false)">💊 Dispense Drug</button>
+              <button class="btn btn-outline" style="justify-content:center" onclick="showPage('staff',null,false)">👤
+                Register Staff</button>
+              <button class="btn btn-outline" style="justify-content:center" onclick="toggleChat()">🤖 AI
+                Assistant</button>
+            </div>
+            <div class="divider"></div>
+            <div class="panel-title" style="margin-bottom:10px">📢 Campus Health Alerts</div>
+            <div class="item-row">
+              <div>
+                <div class="item-name">Flu Season Advisory</div>
+                <div class="item-meta">Ensure medical protocols for respiratory symptoms.</div>
+              </div>
+            </div>
+            <div class="item-row">
+              <div>
+                <div class="item-name">System Maintenance</div>
+                <div class="item-meta">Database optimization scheduled for midnight.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ APPOINTMENTS ══ -->
+      <div class="page" id="page-appointments">
+        <div class="page-head">
+          <div>
+            <div class="page-title">📅 Appointments</div>
+            <div class="page-sub">Manage student and staff clinical schedules</div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-book')">+ Book Appointment</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Clinical Appointment Registry</span>
+            <div class="search-bar"><span class="icon">🔍</span><input type="text" placeholder="Search appointments..."
+                oninput="filterTable(this, 'appointments-list-body')"></div>
+          </div>
+          <div class="tbl-wrap">
+            <table id="appointmentsTable">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Patient</th>
+                  <th>Doctor</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="appointments-list-body">
+                <!-- AJAX -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CONSULTATION ══ -->
+      <div class="page" id="page-consultation">
+        <div class="page-head">
+          <div>
+            <div class="page-title">🩺 Clinical Consultation</div>
+            <div class="page-sub">Record patient diagnosis and medical history</div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-consult')">+ New Consultation</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Consultation Records History</span>
+            <div class="search-bar"><span class="icon">🔍</span><input type="text" placeholder="Search records..."
+                oninput="filterTable(this, 'consultations-list-body')"></div>
+          </div>
+          <div class="tbl-wrap">
+            <table id="consultationsTable">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Patient Name</th>
+                  <th>Doctor</th>
+                  <th>Symptoms</th>
+                  <th>Diagnosis</th>
+                </tr>
+              </thead>
+              <tbody id="consultations-list-body">
+                <!-- AJAX -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ LAB ══ -->
+      <div class="page" id="page-lab">
+        <div class="page-head">
+          <div>
+            <div class="page-title">🔬 Laboratory Records</div>
+            <div class="page-sub">Manage clinical tests and investigations</div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-lab')">+ Log Lab Result</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Investigation Registry</span>
+          </div>
+          <div class="tbl-wrap">
+            <table id="labTable">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Test Name</th>
+                  <th>Reg Number</th>
+                  <th>Result</th>
+                  <th>Staff</th>
+                </tr>
+              </thead>
+              <tbody id="lab-list-body">
+                <!-- AJAX -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PHARMACY ══ -->
+      <div class="page" id="page-pharmacy">
+        <div class="page-head">
+          <div>
+            <div class="page-title">💊 Pharmacy & Prescriptions</div>
+            <div class="page-sub">Dispense medication and track inventory</div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-rx')">+ New Prescription</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Prescription History</span>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Patient Name</th>
+                  <th>Medication</th>
+                  <th>Dosage</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="rx-list-body">
+                <!-- AJAX -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STAFF ══ -->
+      <div class="page" id="page-staff">
+        <div class="page-head">
+          <div>
+            <div class="page-title">👥 Staff Management</div>
+            <div class="page-sub">Register and manage health unit personnel</div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-register')">+ Add New Staff</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Medical Staff Directory</span>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Staff ID</th>
+                  <th>Practice/Expertise</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="staff-list-body">
+                <!-- AJAX -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ══════════════════ MODALS ══════════════════ -->
+
+  <!-- MODAL: BOOK APPOINTMENT -->
+  <div class="modal-overlay" id="modal-book">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-title">📅 Book New Appointment</div><button class="modal-close"
+          onclick="closeModal('modal-book')">&times;</button>
+      </div>
+      <form id="appointmentForm" class="form-grid">
+        <div class="field full">
+          <label>Student Registration</label>
+          <select name="student_id" id="studentList" required>
+            <option value="">-- Select Student --</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>Doctor / Consultant</label>
+          <select name="doctor_id" id="doctorList" required>
+            <option value="">-- Select Doctor --</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Appointment Date</label>
+          <input type="date" name="appointment_date" required>
+        </div>
+        <div class="field">
+          <label>Preferred Time</label>
+          <input type="time" name="appointment_time" required>
+        </div>
+        <div class="field full">
+          <label>Reason for Visit / Complain</label>
+          <textarea name="reason" placeholder="Briefly describe the symptoms..."></textarea>
+        </div>
+        <div class="full" style="display:flex;gap:10px;margin-top:10px">
+          <button type="submit" class="btn btn-primary" style="flex:1">Confirm Booking</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('modal-book')">Cancel</button>
+        </div>
       </form>
-      <p id="feedbackStatus" style="display:none; color:green; font-weight:bold;">Thank you for your feedback!</p>
-    </section>
+    </div>
+  </div>
 
-    <!-- Contact -->
-    <section>
-      <h2>Contact Us</h2>
-      <p>📞 Phone: +254 712 345 678</p>
-      <p>📧 Email: healthunit@murangauniversity.ac.ke</p>
-      <p>📍 Location: Murang'a University, P.O Box 75-10200 Murang'a, Kenya</p>
-    </section>
-  </main>
+  <!-- MODAL: NEW CONSULTATION -->
+  <div class="modal-overlay" id="modal-consult">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-title">🩺 Record Consultation</div><button class="modal-close"
+          onclick="closeModal('modal-consult')">&times;</button>
+      </div>
+      <form id="consultationForm" class="form-grid">
+        <div class="field full">
+          <label>Patient Name (Reg No - Fullname)</label>
+          <input type="text" name="patient_name" placeholder="e.g. John Doe" required>
+        </div>
+        <div class="field full">
+          <label>Doctor In charge</label>
+          <input type="text" name="doctor" required>
+        </div>
+        <div class="field">
+          <label>Patient ID / Reg No</label>
+          <input type="text" name="patient_id" required>
+        </div>
+        <div class="field full">
+          <label>Observed Symptoms</label>
+          <textarea name="symptoms" required></textarea>
+        </div>
+        <div class="field full">
+          <label>Diagnosis Result</label>
+          <textarea name="diagnosis" required></textarea>
+        </div>
+        <div class="field full">
+          <label>Additional Notes</label>
+          <textarea name="notes"></textarea>
+        </div>
+        <div class="full" style="display:flex;gap:10px;margin-top:10px">
+          <button type="submit" class="btn btn-primary" style="flex:1">Save Full Record</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('modal-consult')">Discard</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: LOG LAB RESULT -->
+  <div class="modal-overlay" id="modal-lab">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-title">🔬 Clinical Investigation Record</div><button class="modal-close"
+          onclick="closeModal('modal-lab')">&times;</button>
+      </div>
+      <form id="labForm" class="form-grid">
+        <div class="field full">
+          <label>Test Performed</label>
+          <input type="text" name="test_name" placeholder="e.g. Malaria RDT" required>
+        </div>
+        <div class="field">
+          <label>Patient Reg No</label>
+          <input type="text" name="patient_reg" required>
+        </div>
+        <div class="field">
+          <label>Lab Staff In charge</label>
+          <input type="text" name="lab_staff" required>
+        </div>
+        <div class="field full">
+          <label>Investigation Result / Findings</label>
+          <textarea name="test_result" required></textarea>
+        </div>
+        <div class="full" style="display:flex;gap:10px;margin-top:10px">
+          <button type="submit" class="btn btn-primary" style="flex:1">Sync to Patient File</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('modal-lab')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD RX -->
+  <div class="modal-overlay" id="modal-rx">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-title">💊 Issue Medication / Rx</div><button class="modal-close"
+          onclick="closeModal('modal-rx')">&times;</button>
+      </div>
+      <form id="rxForm" class="form-grid">
+        <div class="field full">
+          <label>Medication / Drug Name</label>
+          <input type="text" name="pills" required>
+        </div>
+        <div class="field">
+          <label>Patient Name</label>
+          <input type="text" name="patient_name" required>
+        </div>
+        <div class="field">
+          <label>Dose Intensity</label>
+          <input type="text" name="dose" placeholder="e.g. 500mg" required>
+        </div>
+        <div class="field full">
+          <label>Usage Frequency</label>
+          <input type="text" name="frequency" placeholder="e.g. 1x3 for 5 days" required>
+        </div>
+        <div class="full" style="display:flex;gap:10px;margin-top:10px">
+          <button type="submit" class="btn btn-primary" style="flex:1">Dispense & Record</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('modal-rx')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: STAFF REGISTRATION -->
+  <div class="modal-overlay" id="modal-register">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-title">👤 Health Unit Staff Registration</div><button class="modal-close"
+          onclick="closeModal('modal-register')">&times;</button>
+      </div>
+      <form id="staffForm" class="form-grid">
+        <div class="field full">
+          <label>Staff Full Name</label>
+          <input type="text" name="doctor_name" required>
+        </div>
+        <div class="field">
+          <label>Institutional Role</label>
+          <select name="expertise" required>
+            <option value="General Doctor">General Doctor</option>
+            <option value="Lab Technician">Lab Technician</option>
+            <option value="Nurse">Nurse</option>
+            <option value="Pharmacy Staff">Pharmacy Staff</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Practice / Department</label>
+          <input type="text" name="practice">
+        </div>
+        <div class="field">
+          <label>Phone Contact</label>
+          <input type="text" name="phone">
+        </div>
+        <div class="field">
+          <label>Gender</label>
+          <select name="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div class="full" style="display:flex;gap:10px;margin-top:10px">
+          <button type="submit" class="btn btn-primary" style="flex:1">Onboard Staff</button>
+          <button type="button" class="btn btn-outline" onclick="closeModal('modal-register')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CHATBOT UI -->
+  <button class="chat-bubble-btn" onclick="toggleChat()">💬</button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-head">
+      <div class="chat-av">🤖</div>
+      <div>
+        <div class="chat-name">MUT Health Assistant</div>
+        <div class="chat-status">Online • AI-Driven</div>
+      </div>
+      <button class="chat-head-close" onclick="toggleChat()">&times;</button>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="msg">
+        <div class="msg-bubble">Hello! I am your MUT Health Assistant. How can I help you manage records today?</div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" placeholder="Type health unit query..."
+        onkeyup="if(event.key==='Enter') sendMessage()">
+      <button class="chat-send" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
 
   <footer>
-    <p>&copy; 2026 Murang'a University Health Unit | All Rights Reserved</p>
+    <p>&copy; 2026 Murang'a University Health Unit | Developed for Institutional Excellence</p>
   </footer>
 
+  <!-- ══════════════════ SCRIPTS ══════════════════ -->
   <script>
-    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const msg = document.getElementById('feedbackMsg').value.trim();
-      if (!msg) return;
-      document.getElementById('feedbackStatus').style.display = 'block';
-      document.getElementById('feedbackMsg').value = '';
-    });
-  </script>
+    // --- NAVIGATION LOGIC ---
+    const BASE_PATH = 'backend-php/api/';
 
+    function showPage(pageId, btn, isSidebar = false) {
+      // Toggle pages
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + pageId).classList.add('active');
+
+      // Toggle buttons
+      document.querySelectorAll('.nav-btn, .s-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      // Sync sidebar/header
+      if (isSidebar) {
+        // Optional: Find corresponding header btn and active it
+      }
+
+      // Reload data for the page
+      loadPageData(pageId);
+    }
+
+    function loadPageData(page) {
+      if (page === 'dashboard') loadDashboardStats();
+      if (page === 'appointments') loadAppointments();
+      if (page === 'consultation') loadConsultations();
+      if (page === 'lab') loadLabRecords();
+      if (page === 'pharmacy') loadPrescriptions();
+      if (page === 'staff') loadStaff();
+    }
+
+    // --- MODAL LOGIC ---
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    // --- DATA ACCESS LAYER (AJAX) ---
+
+    async function fetchData(endpoint) {
+      try {
+        const res = await fetch(`${BASE_PATH}${endpoint}`);
+        return await res.json();
+      } catch (e) {
+        console.error(`Failed to fetch ${endpoint}`, e);
+        return [];
+      }
+    }
+
+    async function postData(endpoint, formData) {
+      try {
+        const res = await fetch(`${BASE_PATH}${endpoint}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData)
+        });
+        return await res.json();
+      } catch (e) {
+        console.error(`Failed to post to ${endpoint}`, e);
+        return { success: false, error: 'Network error' };
+      }
+    }
+
+    // --- MODULE: DASHBOARD ---
+    async function loadDashboardStats() {
+      const apps = await fetchData('appointment.php');
+      const consults = await fetchData('consultation.php');
+      const docs = await fetchData('getDoctors.php');
+      const labs = await fetchData('labs.php');
+
+      document.getElementById('stat-appointments').textContent = apps.length || 0;
+      document.getElementById('stat-consultations').textContent = consults.length || 0;
+      document.getElementById('stat-doctors').textContent = docs.length || 0;
+      document.getElementById('stat-labs').textContent = labs.length || 0;
+
+      // Load recent activity (latest 3 appointments)
+      const recentList = document.getElementById('recent-activity-list');
+      recentList.innerHTML = '';
+      if (apps.length > 0) {
+        apps.slice(0, 3).forEach(app => {
+          const card = document.createElement('div');
+          card.className = 'appt-card';
+          const date = new Date(app.appointment_date);
+          const day = date.getDate();
+          const mon = date.toLocaleString('default', { month: 'short' });
+
+          card.innerHTML = `
+                <div class="appt-date-box"><div class="day">${day}</div><div class="mon">${mon}</div></div>
+                <div class="appt-info">
+                   <div class="appt-name">${app.student_name || 'Anonymous Patient'}</div>
+                   <div class="appt-detail">${app.appointment_time} • ${app.reason || 'General Checkup'}</div>
+                </div>
+                <span class="badge ${app.status === 'Confirmed' ? 'badge-green' : 'badge-gold'}">${app.status || 'Pending'}</span>
+            `;
+          recentList.appendChild(card);
+        });
+      } else {
+        recentList.innerHTML = '<div class="empty-state"><p>No recent activity found.</p></div>';
+      }
+    }
+
+    // --- MODULE: APPOINTMENTS ---
+    async function loadAppointments() {
+      const list = await fetchData('appointment.php');
+      const tbody = document.getElementById('appointments-list-body');
+      tbody.innerHTML = list.map(app => `
+        <tr>
+            <td>${app.appointment_date}</td>
+            <td>${app.appointment_time}</td>
+            <td>${app.student_name || 'N/A'}</td>
+            <td>${app.doctor_name || 'N/A'}</td>
+            <td>${app.reason || ''}</td>
+            <td><span class="badge ${app.status === 'Confirmed' ? 'badge-green' : 'badge-gold'}">${app.status || 'Pending'}</span></td>
+        </tr>
+    `).join('');
+    }
+
+    // Populate Dropdowns for Booking
+    async function populateBookingDropdowns() {
+      const students = await fetchData('getStudents.php');
+      const doctors = await fetchData('getDoctors.php');
+
+      const sSelect = document.getElementById('studentList');
+      const dSelect = document.getElementById('doctorList');
+
+      sSelect.innerHTML = '<option value="">-- Select Student --</option>' +
+        students.map(s => `<option value="${s.id}">${s.reg_number} - ${s.fullname}</option>`).join('');
+
+      dSelect.innerHTML = '<option value="">-- Select Doctor --</option>' +
+        doctors.map(d => `<option value="${d.id}">${d.doctor_name} (${d.practice || 'General'})</option>`).join('');
+    }
+
+    // --- MODULE: CONSULTATION ---
+    async function loadConsultations() {
+      const list = await fetchData('consultation.php');
+      const tbody = document.getElementById('consultations-list-body');
+      tbody.innerHTML = list.map(item => `
+        <tr>
+            <td>${item.created_at ? item.created_at.substring(0, 10) : 'N/A'}</td>
+            <td>${item.patient_name || 'N/A'}</td>
+            <td>${item.doctor || 'N/A'}</td>
+            <td>${item.symptoms || ''}</td>
+            <td><strong>${item.diagnosis || ''}</strong></td>
+        </tr>
+    `).join('');
+    }
+
+    // --- MODULE: LAB ---
+    async function loadLabRecords() {
+      const list = await fetchData('labs.php');
+      const tbody = document.getElementById('lab-list-body');
+      tbody.innerHTML = list.map(item => `
+        <tr>
+            <td>${item.created_at ? item.created_at.substring(0, 10) : 'N/A'}</td>
+            <td>${item.test_name}</td>
+            <td>${item.patient_reg}</td>
+            <td>${item.test_result}</td>
+            <td>${item.lab_staff}</td>
+        </tr>
+    `).join('');
+    }
+
+    // --- MODULE: PHARMACY ---
+    async function loadPrescriptions() {
+      const list = await fetchData('prescriptions.php');
+      const tbody = document.getElementById('rx-list-body');
+      tbody.innerHTML = list.map(item => `
+        <tr>
+            <td>${item.created_at ? item.created_at.substring(0, 10) : 'N/A'}</td>
+            <td>${item.patient_name}</td>
+            <td>${item.pills}</td>
+            <td>${item.dose} x ${item.frequency}</td>
+            <td><span class="badge badge-green">Dispensed</span></td>
+        </tr>
+    `).join('');
+    }
+
+    // --- MODULE: STAFF ---
+    async function loadStaff() {
+      const list = await fetchData('getDoctors.php');
+      const tbody = document.getElementById('staff-list-body');
+      tbody.innerHTML = list.map(d => `
+        <tr>
+            <td><strong>${d.doctor_name}</strong></td>
+            <td>STF-${(1000 + parseInt(d.id)).toString()}</td>
+            <td>${d.practice || 'General Health'}</td>
+            <td><span class="badge badge-navy">Active</span></td>
+        </tr>
+    `).join('');
+    }
+
+    // --- FORM SUBMISSIONS ---
+
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const id = this.id;
+        let endpoint = '';
+
+        switch (id) {
+          case 'appointmentForm': endpoint = 'appointment.php'; break;
+          case 'consultationForm': endpoint = 'consultation.php'; break;
+          case 'labForm': endpoint = 'labs.php'; break;
+          case 'rxForm': endpoint = 'prescriptions.php'; break;
+          case 'staffForm': endpoint = 'doctors-registration.php'; break;
+        }
+
+        const res = await postData(endpoint, new FormData(this));
+        if (res.success) {
+          alert('Success: Record saved to MUT database.');
+          this.reset();
+          const modal = this.closest('.modal-overlay');
+          if (modal) modal.classList.remove('open');
+          // Refresh current view
+          const activePage = document.querySelector('.page.active').id.replace('page-', '');
+          loadPageData(activePage);
+        } else {
+          alert('Error: ' + (res.error || 'Check server connection'));
+        }
+      });
+    });
+
+    // --- UTILS ---
+    function filterTable(input, bodyId) {
+      const filter = input.value.toLowerCase();
+      const rows = document.getElementById(bodyId).getElementsByTagName('tr');
+      for (let row of rows) {
+        row.style.display = row.textContent.toLowerCase().includes(filter) ? '' : 'none';
+      }
+    }
+
+    function toggleChat() {
+      document.getElementById('chatWindow').classList.toggle('open');
+    }
+
+    function sendMessage() {
+      const input = document.querySelector('.chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chat = document.getElementById('chatMsgs');
+      chat.innerHTML += `<div class="msg user"><div class="msg-bubble">${text}</div></div>`;
+      input.value = '';
+
+      setTimeout(() => {
+        chat.innerHTML += `<div class="msg"><div class="msg-bubble">I've received your query about "${text}". As an AI assistant, I can confirm this is logged. How else can I assist with MUT health unit records?</div></div>`;
+        chat.scrollTop = chat.scrollHeight;
+      }, 1000);
+    }
+
+    // Initial Setup
+    const today = new Date();
+    document.getElementById('current-date').textContent = today.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
+    loadDashboardStats();
+    populateBookingDropdowns();
+
+  </script>
 </body>
+
 </html>
